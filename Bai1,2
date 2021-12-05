@@ -1,0 +1,18 @@
+#define _CRT_SECURE_NO_WARNINGS //tránh cảnh báo _s của scanf,...
+#include <stdio.h>
+
+void clear()
+{
+	int c;
+	while ((c = getchar()) != '\n' && c != EOF) {} 
+}
+
+int main()
+{
+    char a[100];
+		clear();
+		printf("Nhap mot chuoi: ");
+		gets_s(a);
+		puts(a);
+    return 0;
+}
