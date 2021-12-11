@@ -1,4 +1,4 @@
-# HCMUS
+# STRUCT
 Bài 1. Định nghĩa cấu trúc dữ liệu PhanSo
 Thực hiện các yêu cầu sau:
 1. Viết hàm Nhập và Xuất phân số
