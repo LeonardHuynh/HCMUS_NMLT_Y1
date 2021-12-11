@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <math.h>
 
 struct PHANSO {
 	int tu;
