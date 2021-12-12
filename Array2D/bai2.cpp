@@ -78,3 +78,4 @@ int main()
 	printf("So so nguyen to trong ma tran: %d", dem);
 	return 0;
 }
+
