@@ -4,9 +4,9 @@ Bài 2: Viết chương trình nhập vào 1 số nguyên n. Chuyển đổi n s
 
 Bài 3: Viết chương trình nhập vào 1 dãy 16 bit nhị phân (có dấu), chuyển đổi dãy bit nhị phân sang số thập phân tương ứng.
 
-Bài 4: Nhập vào một mảng gồm n phần tử nguyên (1 ≤ n ≤ 10,000) và một số nguyên X:
-a. Những phần tử nào (in ra cả giá trị và vị trí của phần tử đó) là ước số của X?
-b. Dồn những phần tử là ước số của X về cuối mảng. Sắp xếp các phần tử không phải là ước số X theo thứ tự tăng dần (giữ nguyên vị trí các phần tử là ước số của X).
+Bài 4: Nhập vào một mảng gồm n phần tử nguyên (1 ≤ n ≤ 10,000) và một số nguyên X:\n
+a. Những phần tử nào (in ra cả giá trị và vị trí của phần tử đó) là ước số của X?\n
+b. Dồn những phần tử là ước số của X về cuối mảng. Sắp xếp các phần tử không phải là ước số X theo thứ tự tăng dần (giữ nguyên vị trí các phần tử là ước số của X).\n
 
 Bài 6: Nhập vào một mảng các số nguyên dương gồm n phần tử (1 ≤ n ≤ 15):
 a. Đếm số phần tử tận cùng là 6 và chia hết cho 6 trong mảng
