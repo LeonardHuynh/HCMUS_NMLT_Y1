@@ -65,3 +65,16 @@ int Dem_SoNguyenTo(int a[][MAX_COLS], int rows, int cols)
 	}
 	return dem;
 }
+
+
+int main()
+{
+	int a[10][10];
+	int rows, cols;
+	NhapMang2D(a, rows, cols);
+	printf("Ma tran da nhap:\n");
+	XuatMang2D(a, rows, cols);
+	int dem = Dem_SoNguyenTo(a, rows, cols);
+	printf("So so nguyen to trong ma tran: %d", dem);
+	return 0;
+}
