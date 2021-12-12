@@ -135,3 +135,4 @@ int main()
 	printf("So luong gia tri 'hoang hau' trong ma tran: %d", dem);
 	return 0;
 }
+
