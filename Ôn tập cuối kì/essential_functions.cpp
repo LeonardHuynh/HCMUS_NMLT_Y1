@@ -347,7 +347,7 @@ int Tim_SoLonNhat_TrenBien(int a[][MAX_COLS], int rows, int cols)
 	return max;
 }
 
-// 19. Liệt kê các dòng chứa toàn giá trị chẵn:
+// 19.Liệt kê các dòng chứa toàn giá trị chẵn:
 void LietKe_Dong_ToanSoChan(int a[][MAX_COLS], int rows, int cols)
 {
 	for (int i = 0; i < rows; i++)
@@ -368,9 +368,341 @@ void LietKe_Dong_ToanSoChan(int a[][MAX_COLS], int rows, int cols)
 	}
 }
 
+// 20.Kiểm tra một phần từ là cực trị trong ma trận:
+bool KTra_CucTri(int a[][MAX_COLS], int vitri_dong, int vitri_cot, int rows, int cols)
+{
+	bool CucDai = true, CucTieu = true;
+	for (int i = -1; i <= 1; i++)
+	{
+		for (int j = -1; j <= 1; j++)
+		{
+			if (vitri_dong + i >= 0 && vitri_cot + j >= 0 && vitri_dong + i < rows && vitri_cot + j < cols && !(i == 0 && j == 0))
+			{
+				if (a[vitri_dong + i][vitri_cot + j] >= a[vitri_dong][vitri_cot])
+					CucDai = false;
+				if (a[vitri_dong + i][vitri_cot + j] <= a[vitri_dong][vitri_cot])
+					CucTieu = false;
+				if (CucDai == false && CucTieu == false)
+					break;
+			}
+		}
+	}
+	if (CucDai == false && CucTieu == false)
+		return false;
+	return true;
+}
 
+// 21. Tìm chữ số xuất hiện nhiều nhât trong ma trận:
+void Tach_ChuSo(int n, int b[])
+{
+	int ChuSo;
+	while (n > 0)
+	{
+		ChuSo = n % 10;
+		b[ChuSo]++;
+		n /= 10;
+	}
+}
 
+int Tim_ChuSo_XuatHienNhieuNhat(int a[][MAX_COLS], int rows, int cols)
+{
+	int b[10] = { 0 };
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < cols; j++)
+		{
+			Tach_ChuSo(a[i][j], b);
+		}
+	}
+	int ChuSo_XuatHienNhieuNhat = 0; 
+	for (int i = 0; i < 10; i++)
+	{
+		if (b[ChuSo_XuatHienNhieuNhat] < b[i])
+			ChuSo_XuatHienNhieuNhat = i;
+	}
+	return ChuSo_XuatHienNhieuNhat;
+}
 
+// 22.Sắp xếp phần tử biên tăng dần theo chiều kim đồng hồ:
+void Tach_PhanTuBien(int a[][MAX_COLS], int rows, int cols, int b[], int& size)
+{
+	size = 0;
+	for (int i = 0; i < rows; i++)
+	{
+		b[size++] = a[i][0];
+		b[size++] = a[i][cols - 1];
+	}
+	for (int j = 1; j < cols - 1; j++)
+	{
+		b[size++] = a[0][j];
+		b[size++] = a[rows - 1][j];
+	}
+}
+void SapXep_MaTran_Bien_ChieuKDH(int a[][MAX_COLS], int rows, int cols)
+{
+	int b[100];
+	int size;
+	Tach_PhanTuBien(a, rows, cols, b, size);
+	SapXep_TangDan(b, size);
+	int i = 0, j = 0; 
+	int index = 0;
+	for (i, j; j < cols; j++)
+	{
+		a[i][j] = b[index++];
+	}
+	i++; // Tang rows them 1 dong
+	j--; // Giam cols 1 don vi do vong for lam tang len = cols
+	for (i, j; i < rows; i++)
+	{
+		a[i][j] = b[index++];
+	}
+	i--; //Giam rows 1 don vi do vong for lam tang len = rows
+	j--; //Giam cols 1 don vi
+	for (i, j; j >= 0; j--)
+	{
+		a[i][j] = b[index++];
+	}
+	i--; //Giam rows 1 don vi, loai bo phan tu da tinh
+	j++; //Tang cols len = 0, do vong for lam j = -1
+	for (i, j; i > 0; i--)
+	{
+		a[i][j] = b[index++];
+	}
+}
+
+//STRUCT:
+//23.Phân số:
+struct PHANSO {
+	int tu;
+	int mau;
+};
+
+void Nhap_PS(PHANSO& ps) {
+	printf("Tu so: ");
+	scanf_s("%d", &ps.tu);
+	do {
+		printf("Mau so: ");
+		scanf_s("%d", &ps.mau);
+		if (ps.mau == 0) {
+			printf("Mau so khong hop le!");
+		}
+	} while (ps.mau == 0);
+}
+
+void Xuat_PS(PHANSO ps) {
+	printf("%d/%d", ps.tu, ps.mau);
+}
+
+int Tinh_UCLN(int a, int b) {
+	a = abs(a);
+	b = abs(b);
+	while (a != b) {
+		if (a > b) {
+			a = a - b;
+		}
+		else {
+			b = b - a;
+		}
+	}
+	return a;
+}
+
+void RutGon_PS(PHANSO& ps) {
+	int UCLN = Tinh_UCLN(ps.tu, ps.mau);
+	ps.tu = ps.tu / UCLN;
+	ps.mau = ps.mau / UCLN;
+}
+
+PHANSO Tong_PS(PHANSO a, PHANSO b) {
+	PHANSO tong;
+	tong.tu = a.tu * b.mau + a.mau * b.tu;
+	tong.mau = a.mau * b.mau;
+	RutGon_PS(tong);
+	return tong;
+}
+
+PHANSO Hieu_PS(PHANSO a, PHANSO b) {
+	PHANSO hieu;
+	hieu.tu = a.tu * b.mau - a.mau * b.tu;
+	hieu.mau = a.mau * b.mau;
+	RutGon_PS(hieu);
+	return hieu;
+}
+
+PHANSO Tich_PS(PHANSO a, PHANSO b) {
+	PHANSO tich;
+	tich.tu = a.tu * b.tu;
+	tich.mau = a.mau * b.mau;
+	RutGon_PS(tich);
+	return tich;
+}
+
+PHANSO Thuong_PS(PHANSO a, PHANSO b) {
+	PHANSO thuong;
+	thuong.tu = a.tu * b.mau;
+	thuong.mau = a.mau * b.tu;
+	RutGon_PS(thuong);
+	return thuong;
+}
+
+int SoSanh_PS(PHANSO a, PHANSO b) {
+	if (a.tu * b.mau > a.mau * b.tu) {
+		return 1;
+	}
+	else if (a.tu * b.mau == a.mau * b.tu) {
+		return 0;
+	}
+	else {
+		return -1;
+	}
+}
+// 24.Dãy phân số:
+PHANSO Tong_DayPS(PHANSO a[], int n) {
+	PHANSO tong;
+	tong.tu = a[0].tu; tong.mau = a[0].mau;
+	for (int i = 1; i < n; i++) {
+		tong = Tong_PS(tong, a[i]);
+	}
+	return tong;
+}
+
+// 25.Kiểm tra điểm D nằm trong tam giác:
+int KiemTra_ViTri(DIEM2D A, DIEM2D B, DIEM2D C, DIEM2D D) {
+	double dientichABD = Tinh_DienTich(A, B, D);
+	double dientichACD = Tinh_DienTich(A, C, D);
+	double dientichBCD = Tinh_DienTich(B, C, D);
+	double dientichABC = Tinh_DienTich(A, B, C);
+	double d = (dientichABD + dientichACD + dientichBCD) - dientichABC;
+	printf("dientichABD = %lf\n", dientichABD);
+	printf("dientichACD = %lf\n", dientichACD);
+	printf("dientichBCD = %lf\n", dientichBCD);
+	printf("dientichABC = %lf\n", dientichABC);
+	if (d > 0) {
+		return 0;
+	}
+	else
+	{
+		return 1;
+	}
+}
+
+//STRING:
+// 26. Hàm xóa buffer thay fflush():
+void clear()
+{
+	int c;
+	while ((c = getchar()) != '\n' && c != EOF) {} 
+}
+
+// 27. Xuất 1 từ 1 dòng - Dùng strtok():
+void xuat_1tu1dong(char a[])
+{
+	char* piece = strtok(a, " "); 
+	while (piece != NULL)
+	{
+		printf("%s\n", piece);
+		piece = strtok(NULL, " ");
+	}
+}
+
+// 28.Xuất vị trí xuất hiện chuỗi con:
+void xuat_ViTriXuatHienChuoiCon(char a[], char chuoicon[])
+{
+	int len_a = strlen(a);
+	int len_chuoicon = strlen(chuoicon);
+	for (int i = 0; i < len_a; i++)
+	{
+		if (a[i] == chuoicon[0])
+		{
+			int flag = 1;
+			int index = i;
+			for (int j = 1; j < len_chuoicon; j++)
+			{
+				if (a[++index] != chuoicon[j])
+				{
+					flag = 0;
+					break;
+				}
+			}
+			if (flag == 1)
+				printf("Vi tri xuat hien chuoi con: %d\n", i);
+		}
+	}
+}
+
+// 29.Đảo chuỗi:
+void hoanvi(char& a, char& b)
+{
+	int tg = a;
+	a = b;
+	b = tg;
+}
+void DaoChuoi(char a[])
+{
+	int len = strlen(a);
+	for (int i = 0; i < len / 2; i++)
+	{
+		hoanvi(a[i], a[len - 1 - i]);
+	}
+}
+
+// 30. Viết hoa kí tự đầu:
+void VietHoa_KiTuDau(char a[])
+{
+	if (a[0] >= 'a' && a[0] <= 'z')
+	{
+		a[0] -= 32;
+	}
+	int len = strlen(a);
+	for (int i = 1; i < len; i++)
+	{
+		if (a[i] == ' ' && a[i + 1] >= 'a' && a[i + 1] <= 'z')
+		{
+			a[i + 1] -= 32;
+		}
+	}
+}
+
+// 31. Loại bỏ khoảng trắng:
+void LoaiBoKhoangTrang(char a[])
+{
+	int len = strlen(a);
+	for (int i = 0; i < len; i++)
+	{
+		if (a[i] == ' ')
+		{
+			for (int j = i; j < len; j++)
+			{
+				a[j] = a[j + 1];
+			}
+			i--;
+		}
+	}
+}
+
+// FILE:
+// 32. Đọc, ghi phân số:
+bool Doc_PhanSo(const char* fname, PHANSO& a) {
+	FILE* f;
+	errno_t errorcheck = fopen_s(&f, fname, "rt");
+	if (f == NULL) {
+		return false;
+	}
+	fscanf_s(f, "%d/%d", &a.tu, &a.mau);
+	fclose(f);
+	return true;
+}
+
+bool Ghi_PhanSo(const char* fname, PHANSO a) {
+	FILE* f;
+	errno_t errorcheck = fopen_s(&f, fname, "wt");
+	if (f == NULL) {
+		return false;
+	}
+	fprintf(f, "%d/%d", a.tu, a.mau);
+	fclose(f);
+	return true;
+}
 
 
 
