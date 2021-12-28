@@ -114,8 +114,3 @@ PSN TinhNghiem(PS b, Delta, PS a);
 //Trong đó, b là hệ số của x^1 trong phương trình bậc 2, a là hệ số của x^2 trong phương trình bậc 2.
 //Hàm trả về kiểu giá trị PSN như được định nghĩa ở trên, giá trị này chính là nghiệm của phương trình bậc 2 có dạng (b + sqrt(Delta))/2a
 
-
-
-
-
-
